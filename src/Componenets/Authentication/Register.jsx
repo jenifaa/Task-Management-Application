@@ -1,16 +1,38 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../Hooks/useAuth";
+import useAxiosSecure from "../Hooks/axiosSecure";
 
 const Register = () => {
   // const [errors, setErrors] = useState('')
+  const navigate = useNavigate();
+  const { createNewUser, updateUserProfile } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const axiosSecure = useAxiosSecure();
   const onSubmit = (data) => {
-    console.log(data);
+    createNewUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+
+      updateUserProfile(data.name, data.photoURL).then(() => {
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+          photoURL: data.photoURL,
+        };
+
+        axiosSecure.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            reset();
+            navigate("/");
+          }
+        });
+      });
+    });
   };
   return (
     <div>
@@ -99,7 +121,6 @@ const Register = () => {
                 </div>
                 <div className="">
                   <input
-                    
                     className="w-full py-2 my-2 bg-opacity-90 rounded-lg border font-bold "
                     type="submit"
                     value="Sign Up"
