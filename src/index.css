@@ -1,1 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import "tailwindcss";
+@plugin "daisyui";
+
+.font {
+    font-family: "Lobster", serif;
+   
+  }
