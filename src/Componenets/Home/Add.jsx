@@ -1,6 +1,8 @@
 import { useState } from "react";
 import useAxiosSecure from "../Hooks/axiosSecure";
+import useAuth from "../Hooks/useAuth";
 const Add = () => {
+    const {user} = useAuth();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("To-Do");
@@ -9,7 +11,7 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
+   
     if (title.trim() === "" || title.length > 50) {
       alert("Title is required and should be no more than 50 characters.");
       return;
@@ -24,6 +26,7 @@ const Add = () => {
       description,
       timestamp: new Date().toISOString(),
       category,
+      email: user?.email,
     };
 
     try {
@@ -44,7 +47,7 @@ const Add = () => {
   };
 
   return (
-    <div>
+    <div className="dark:bg-black">
       <h2>Add Task</h2>
       <button
         className="btn"
