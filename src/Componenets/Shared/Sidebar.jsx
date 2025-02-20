@@ -1,6 +1,14 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import logo from "../../assets/icons/tasks.png";
+import useAuth from "../Hooks/useAuth";
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const { logOut, user } = useAuth();
+  const handleLogOut = () => {
+    logOut().then(() => {
+      navigate("/login");
+    });
+  };
   return (
     <div className="fixed">
       <div className="w-56 bg-black text-center p-6 text-white min-h-screen">
@@ -16,7 +24,14 @@ const Sidebar = () => {
             <li>Home</li>
             <li>Home</li>
             <li>Home</li>
-            <Link to="/register">Register</Link>
+            {user ? (
+              <>
+                {" "}
+                <button onClick={handleLogOut}>LogOut</button>
+              </>
+            ) : (
+              <Link to="/register">Register</Link>
+            )}
           </ul>
         </div>
       </div>

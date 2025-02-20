@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/axiosSecure";
+import GoogleLogin from "../Hooks/GoogleLogin";
 
 const Register = () => {
   // const [errors, setErrors] = useState('')
@@ -136,6 +137,10 @@ const Register = () => {
                   </small>
                 </p>
               </form>
+              <div className="text-center text-green-700 ">
+              <p>Or </p>
+              <GoogleLogin></GoogleLogin>
+            </div>
             </div>
           </div>
         </div>
