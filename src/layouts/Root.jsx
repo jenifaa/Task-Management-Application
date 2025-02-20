@@ -13,7 +13,10 @@ const Root = () => {
           <Navbar></Navbar>
         </div>
       </div>
-      <Outlet></Outlet>
+      <div className="ml-60">
+        {" "}
+        <Outlet></Outlet>
+      </div>
     </div>
   );
 };
