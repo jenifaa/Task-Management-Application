@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import GoogleLogin from "../Hooks/GoogleLogin";
-
+import bg from "../../assets/images/bg.jpg";
+import bgLogo from "../../assets/icons/tasks.png";
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,22 +21,42 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className=" min-h-screen">
-        <div className=" gap-16 py-8 lg:flex items-center">
-          <div className="mx-auto px-5 lg:w-1/2 max-w-sm font-semibold">
-            <div className="mb-10 text-center text-green-700">
-              <h2 className=" text-5xl  font font-bold mb-2">Welcome</h2>
-              <p className="text-sm">Login to your Account to continue...</p>
+    <div
+      className="min-h-screen "
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      <div className="">
+        <div className="mx-auto  lg:w-1/2 max-w-md font-semibold  absolute bg-purple-100 min-h-screen  ">
+          <div className="pb-20 flex items-center pt-5 px-4">
+            <img src={bgLogo} className="w-16" alt="" />
+            <p className="font-bold text-3xl tracking-widest font bg-gradient-to-r from-black to-purple-700 bg-clip-text text-transparent">
+              OptiTask
+            </p>
+          </div>
+          <div className="px-16">
+            <div className="mb-10 text-center">
+              <h2 className=" text-5xl  font font-bold text-purple-900 mb-2">
+                Welcome
+              </h2>
+              <p className="text-sm font">
+                Login to your Account to continue...
+              </p>
             </div>
             <form onSubmit={handleLogin}>
               <div className="form-control">
-                <h2>Email*</h2>
+                <h2 className="">Email*</h2>
                 <input
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="text-black border-2 rounded-md py-2 px-3 w-full mt-2 mb-5"
+                  className="text-black border-b-2 border-purple-900 rounded-md py-2 px-3 w-full mt-2 mb-5"
                   required
                 />
               </div>
@@ -45,12 +66,12 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="text-black border-2 rounded-md py-2 px-3 w-full mt-2"
+                  className="text-black border-b-2 border-purple-900 rounded-md py-2 px-3 w-full mt-2"
                   required
                 />
               </div>
 
-              <p className=" text-green-700 mb-2">
+              <p className=" text-purple-900 mb-2 mt-1">
                 <small>
                   New Here? Create an Account -
                   <Link className="font-bold" to="/register">
@@ -60,13 +81,13 @@ const Login = () => {
               </p>
               <div className="">
                 <input
-                  className="w-full py-2 my-2 bg-opacity-90 rounded-lg text-white font-bold bg-green-900"
+                  className="w-full py-2 my-3  border-b-2 border-purple-900 rounded-lg text-purple-900  font-bold "
                   type="submit"
                   value="Login"
                 />
               </div>
             </form>
-            <div className="text-center text-green-700 ">
+            <div className="text-center text-purple-700 ">
               <p>Or </p>
               <GoogleLogin></GoogleLogin>
             </div>
