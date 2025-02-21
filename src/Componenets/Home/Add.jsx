@@ -7,6 +7,7 @@ const Add = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("To-Do");
+  const [dueDate, setDueDate] = useState("");
   const axiosSecure = useAxiosSecure();
 
   const handleSubmit = async (e) => {
@@ -26,6 +27,7 @@ const Add = () => {
       description,
       timestamp: new Date().toISOString(),
       category,
+      dueDate,
       email: user?.email,
     };
 
@@ -124,17 +126,32 @@ const Add = () => {
             </div> */}
 
             <div className="mb-6">
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend text-gray-600 dark:text-gray-300 font-semibold">
-                  Category
-                </legend>
-                <input
-                  type="text"
-                  className="w-full py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none dark:bg-gray-700 dark:text-white"
-                  value="To-Do"
-                  readOnly
-                />
-              </fieldset>
+              <div className="">
+                <fieldset className="fieldset">
+                  <legend className="fieldset-legend text-gray-600 dark:text-gray-300 font-semibold">
+                    Category
+                  </legend>
+                  <input
+                    type="text"
+                    className="w-full py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none dark:bg-gray-700 dark:text-white"
+                    value="To-Do"
+                    readOnly
+                  />
+                </fieldset>
+              </div>
+              <div className="">
+                <fieldset className="fieldset">
+                  <legend className="fieldset-legend text-gray-600 dark:text-gray-300 font-semibold">
+                    Due Date
+                  </legend>
+                  <input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)} 
+                    className="w-full py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none dark:bg-gray-700 dark:text-white"
+                  />
+                </fieldset>
+              </div>
             </div>
 
             {/* Modal Action Buttons */}
