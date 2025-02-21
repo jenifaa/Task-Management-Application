@@ -3,6 +3,7 @@ import useAuth from "../Hooks/useAuth";
 import logo from "../../assets/icons/tasks.png";
 import { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { FaPerson } from "react-icons/fa6";
 const Navbar = () => {
   const { logOut, user, loading } = useAuth();
   const navigate = useNavigate();
@@ -13,23 +14,28 @@ const Navbar = () => {
   };
   const [isDarkMode, setIsDarkMode] = useState(false);
   useEffect(() => {
-    // Add or remove the 'dark' class to <html> tag
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-  }, [isDarkMode]); // Re-run this effect whenever isDarkMode changes
+  }, [isDarkMode]);
 
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
   const links = (
     <>
       <li>
-        <a>Item 1</a>
+        <Link>Home</Link>
       </li>
 
       <li>
-        <a>Item 3</a>
+        <Link>About Us</Link>
+      </li>
+      <li>
+        <Link>Our Blog</Link>
+      </li>
+      <li>
+        <Link>Our Services</Link>
       </li>
     </>
   );
@@ -38,7 +44,7 @@ const Navbar = () => {
   }
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm px-10">
+      <div className="navbar font2 bg-base-100 shadow-sm px-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -73,34 +79,65 @@ const Navbar = () => {
             </p>
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        {/* <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
-        </div>
+        </div> */}
+       
+        <div className="navbar-end">
         <div>
           <button onClick={toggleTheme} className="p-2 rounded-full text-2xl">
-            {isDarkMode ? (
-              <FaSun className="text-yellow-500" /> // Sun icon for light mode
-            ) : (
-              <FaMoon /> // Moon icon for dark mode
-            )}
+            {isDarkMode ? <FaSun className="text-yellow-500" /> : <FaMoon />}
           </button>
         </div>
-        <div className="navbar-end">
-          {user ? (
-            <button
-              onClick={handleLogOut}
-              className="bg-red-500 px-3 py-1 rounded mt-5 hover:bg-red-700"
+        <div className="navbar-center text-xl font-semibold hidden lg:flex">
+          <ul className="menu menu-horizontal px-1">{links}</ul>
+        </div>
+          <div className="dropdown dropdown-bottom dropdown-end">
+            <div tabIndex={0} role="button" className=" ">
+              {user ? (
+                <>
+                  <img
+                    src={user?.photoURL}
+                    className="w-10 rounded-full h-10"
+                    alt=""
+                  />
+                </>
+              ) : (
+                <>
+                  <FaPerson className="w-10 rounded-full h-10"></FaPerson>
+                </>
+              )}
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
             >
-              Log Out
-            </button>
-          ) : (
-            <Link
-              to="/register"
-              className="bg-blue-500 px-3 py-1 rounded mt-5 hover:bg-blue-700"
-            >
-              Register
-            </Link>
-          )}
+              <li>
+                <p>{user?.displayName}</p>
+              </li>
+
+              <li>
+                <Link>My Profile</Link>
+              </li>
+              <li>
+                {user ? (
+                  <button
+                    onClick={handleLogOut}
+                    className="bg-red-500 px-3 py-1 rounded  hover:bg-red-700"
+                  >
+                    Log Out
+                  </button>
+                ) : (
+                  <Link
+                    to="/register"
+                    className="bg-blue-500 px-3 py-1 rounded  hover:bg-blue-700"
+                  >
+                    Register
+                  </Link>
+                )}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

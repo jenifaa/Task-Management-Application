@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useAxiosSecure from "../Hooks/axiosSecure";
 import useAuth from "../Hooks/useAuth";
+import { CiCirclePlus } from "react-icons/ci";
 const Add = () => {
   const { user } = useAuth();
   const [title, setTitle] = useState("");
@@ -46,91 +47,19 @@ const Add = () => {
   };
 
   return (
-    // <div className="dark:bg-black">
-    //   <h2>Add Task</h2>
-    //   <button
-    //     className="btn"
-    //     onClick={() => document.getElementById("my_modal_5").showModal()}
-    //   >
-    //     Add Task
-    //   </button>
-
-    //   <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-    //     <div className="modal-box">
-    //       <form onSubmit={handleSubmit}>
-    //         <div>
-    //           <fieldset className="fieldset">
-    //             <legend className="fieldset-legend">Task Title</legend>
-    //             <input
-    //               type="text"
-    //               className="input"
-    //               placeholder="Enter task title"
-    //               value={title}
-    //               onChange={(e) => setTitle(e.target.value)}
-    //               maxLength={50}
-    //               required
-    //             />
-    //           </fieldset>
-    //         </div>
-
-    //         <div>
-    //           <fieldset className="fieldset">
-    //             <legend className="fieldset-legend">
-    //               Task Description (Optional)
-    //             </legend>
-    //             <textarea
-    //               className="textarea h-24"
-    //               placeholder="Enter task description"
-    //               value={description}
-    //               onChange={(e) => setDescription(e.target.value)}
-    //               maxLength={200}
-    //             ></textarea>
-    //           </fieldset>
-    //         </div>
-
-    //         <div>
-    //           <fieldset className="fieldset">
-    //             <legend className="fieldset-legend">Category</legend>
-    //             <select
-    //               className="select"
-    //               value={category}
-    //               onChange={(e) => setCategory(e.target.value)}
-    //             >
-    //               <option value="To-Do">To-Do</option>
-    //               <option value="In Progress">In Progress</option>
-    //               <option value="Done">Done</option>
-    //             </select>
-    //           </fieldset>
-    //         </div>
-
-    //         <div className="modal-action">
-    //           <button className="btn" type="submit">
-    //             Add Task
-    //           </button>
-    //           <button
-    //             className="btn"
-    //             type="button"
-    //             onClick={() => document.getElementById("my_modal_5").close()}
-    //           >
-    //             Close
-    //           </button>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </dialog>
-    // </div>
     <div className="dark:bg-black p-6 rounded-lg shadow-md w-96 mx-auto">
-      <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-white mb-6">
+      <h2 className="text-5xl font-semibold text-center text-purple-400 dark:text-white font2 pt-10 mb-12">
         Add Task
       </h2>
 
-      {/* Add Task Button */}
-      <button
-        className="btn bg-blue-500 hover:bg-blue-600 text-white shadow-md py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        onClick={() => document.getElementById("my_modal_5").showModal()}
-      >
-        Add Task
-      </button>
+      <div className="flex justify-center items-center">
+        <button
+          className=""
+          onClick={() => document.getElementById("my_modal_5").showModal()}
+        >
+          <CiCirclePlus className="text-8xl text-gray-400"></CiCirclePlus>
+        </button>
+      </div>
 
       {/* Modal */}
       <dialog

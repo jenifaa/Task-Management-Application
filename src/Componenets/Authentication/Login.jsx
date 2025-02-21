@@ -56,7 +56,7 @@ const Login = () => {
                   type="email"
                   name="email"
                   placeholder="email"
-                  className="text-black border-b-2 border-purple-900 rounded-md py-2 px-3 w-full mt-2 mb-5"
+                  className="text-black border-b-2  rounded-md py-2 px-3 w-full mt-2 mb-5"
                   required
                 />
               </div>
@@ -66,7 +66,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="text-black border-b-2 border-purple-900 rounded-md py-2 px-3 w-full mt-2"
+                  className="text-black border-b-2  rounded-md py-2 px-3 w-full mt-2"
                   required
                 />
               </div>
@@ -81,7 +81,7 @@ const Login = () => {
               </p>
               <div className="">
                 <input
-                  className="w-full py-2 my-3  border-b-2 border-purple-900 rounded-lg text-purple-900  font-bold "
+                  className="w-full py-2 my-3  border-b-2 bg-purple-950 rounded-lg text-white  font-bold "
                   type="submit"
                   value="Login"
                 />

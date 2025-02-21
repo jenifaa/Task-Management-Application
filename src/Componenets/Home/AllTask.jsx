@@ -51,19 +51,15 @@ const AllTask = () => {
         task._id === id ? { ...task, category: newCategory } : task
       )
     );
-  
+
     axios.put(`http://localhost:5000/task/${id}`, { category: newCategory });
   };
-
-  // const handleComplete = (id) => {
-  //   axios.put(`http://localhost:5000/task/${id}`, { category: "Done" });
-  // };
 
   const categories = ["To-Do", "In Progress", "Done"];
 
   return (
     <div className="max-w-6xl mx-auto my-5">
-      <h2 className="text-2xl font-bold mb-4 text-center">📌 Your Tasks</h2>
+      <h2 className="text-5xl font-bold mb-4 text-center font2">📌 Your Tasks</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {categories.map((category) => (
@@ -86,52 +82,33 @@ const AllTask = () => {
                         {task.category}
                       </p>
 
-                      {/* <div className="mt-3 flex gap-2">
-                      {task.category !== "Done" && (
-                        <button
-                          className="px-3 py-1 bg-green-500 text-white rounded"
-                          onClick={() => handleComplete(task._id)}
-                        >
-                          ✅ Complete
-                        </button>
-                      )}
-                      {task.category !== "Done" && (
-                        <button
-                          className="px-3 py-1 bg-green-500 text-white rounded"
-                          onClick={() => handleComplete(task._id)}
-                        >
-                          ✅ Complete
-                        </button>
-                      )}
-                      <button
-                        className="px-3 py-1 bg-red-500 text-white rounded"
-                        onClick={() => handleDelete(task._id)}
-                      >
-                        ❌ Delete
-                      </button>
-                    </div> */}
+                     
                       <div className="mt-3 flex gap-2">
-                        {task.category === "To-Do" && (
-                          <button
-                            className="px-3 py-1 bg-yellow-500 text-white rounded"
-                            onClick={() =>
-                              handleUpdateCategory(task._id, "In Progress")
-                            }
-                          >
-                            ⏳ Move to In Progress
-                          </button>
-                        )}
+                        <button
+                          className={`px-3 py-1 rounded ${
+                            task.category === "To-Do"
+                              ? "bg-yellow-500 text-white"
+                              : "bg-gray-300 text-gray-700 cursor-not-allowed"
+                          }`}
+                          onClick={() =>
+                            handleUpdateCategory(task._id, "In Progress")
+                          }
+                          disabled={task.category !== "To-Do"}
+                        >
+                          ⏳In Progress
+                        </button>
 
-                        {task.category === "In Progress" && (
-                          <button
-                            className="px-3 py-1 bg-green-500 text-white rounded"
-                            onClick={() =>
-                              handleUpdateCategory(task._id, "Done")
-                            }
-                          >
-                            ✅ Mark as Done
-                          </button>
-                        )}
+                        <button
+                          className={`px-3 py-1 rounded ${
+                            task.category === "In Progress"
+                              ? "bg-green-500 text-white"
+                              : "bg-gray-300 text-gray-700"
+                          }`}
+                          onClick={() => handleUpdateCategory(task._id, "Done")}
+                          // disabled={task.category !== "In Progress"}
+                        >
+                          ✅ Done
+                        </button>
 
                         <button
                           className="px-3 py-1 bg-red-500 text-white rounded"
