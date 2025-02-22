@@ -7,6 +7,7 @@ import Login from "./Componenets/Authentication/Login";
 import AboutUs from "./Componenets/Pages/AboutUs";
 import PrivateRoutes from "./layouts/PrivateRoutes";
 import MyProfile from "./Componenets/Pages/MyProfile";
+import ManageTask from "./Componenets/Home/ManageTask";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/about" element={<AboutUs></AboutUs>} />
         <Route path="/profile" element={<MyProfile></MyProfile>} />
+        <Route path="/manage" element={<ManageTask></ManageTask>} />
         
       </Route>
       <Route path="/register" element={<Register />} />

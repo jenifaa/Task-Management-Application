@@ -14,6 +14,8 @@ const Home = () => {
          <Add></Add>
          {/* </div> */}
       </div>
+
+      
       <AllTask></AllTask>
     </div>
   );

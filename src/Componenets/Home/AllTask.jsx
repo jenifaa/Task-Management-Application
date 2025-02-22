@@ -5,6 +5,7 @@ import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/axiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 const AllTask = () => {
   const { user, loading } = useAuth();
@@ -21,40 +22,7 @@ const AllTask = () => {
     },
   });
 
-  const handleSaveEdit = async () => {
-    try {
-      // Update the task on the server
-      await axiosSecure.put(`/updatedTask/${selectedTask._id}`, {
-        title: taskTitle,
-        description: taskDescription,
-      });
-
-      refetch();
-
-      setSelectedTask(null);
-      setTaskTitle("");
-      setTaskDescription("");
-      document.getElementById("my_modal_1").close();
-    } catch (error) {
-      console.error("Update failed:", error);
-    }
-  };
-
-  // Delete task
-  const handleDelete = async (id) => {
-    if (!id) {
-      console.error("Invalid task ID");
-      return;
-    }
-
-    try {
-      await axiosSecure.delete(`/deleteTask/${id}`);
-
-      refetch();
-    } catch (error) {
-      console.error("Delete failed:", error);
-    }
-  };
+ 
 
   // Handle drag and drop (category change)
   const handleUpdateCategory = async (id, newCategory) => {
@@ -62,12 +30,7 @@ const AllTask = () => {
     refetch();
   };
 
-  const openEditModal = (task) => {
-    setSelectedTask(task);
-    setTaskTitle(task.title);
-    setTaskDescription(task.description);
-    document.getElementById("my_modal_1").showModal();
-  };
+  
 
   // Drag and drop handler
   const handleDragEnd = async (result) => {
@@ -103,7 +66,10 @@ const AllTask = () => {
 
   return (
     <div className="w-11/12 mx-auto my-5">
-      <h2 className="text-5xl font-bold mb-14 text-center">📌 Your Tasks</h2>
+      <div className="flex justify-between font2 items-center ">
+        <h2 className="text-5xl font-bold mb-14 ">📌 Your Tasks</h2>
+        <Link to="/manage" className="text-5xl font-bold mb-14 ">Manage Task</Link>
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {["To-Do", "In Progress", "Done"].map((category, index) => (
@@ -178,18 +144,7 @@ const AllTask = () => {
                                 >
                                   ✅ Done
                                 </button>
-                                <button onClick={() => handleDelete(task._id)}>
-                                  <MdDeleteForever className="text-2xl text-red-600" />
-                                </button>
-
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    openEditModal(task);
-                                  }}
-                                >
-                                  <FaRegEdit className="text-2xl text-blue-600" />
-                                </button>
+                               
                               </div>
                             </div>
                           )}
@@ -205,35 +160,7 @@ const AllTask = () => {
           ))}
         </div>
       </DragDropContext>
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Edit Task</h3>
-          <input
-            type="text"
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
-            className="w-full p-2 mb-4 border rounded"
-            placeholder="Task Title"
-          />
-          <textarea
-            value={taskDescription}
-            onChange={(e) => setTaskDescription(e.target.value)}
-            className="w-full p-2 mb-4 border rounded"
-            placeholder="Task Description"
-          />
-          <div className="modal-action">
-            <button className="btn" onClick={handleSaveEdit}>
-              Save
-            </button>
-            <button
-              className="btn"
-              onClick={() => document.getElementById("my_modal_1").close()}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </dialog>
+   
     </div>
   );
 };
