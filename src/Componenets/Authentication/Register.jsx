@@ -36,6 +36,7 @@ const Register = () => {
           name: data.name,
           email: data.email,
           photoURL: data.photoURL,
+          userId: loggedUser.uid,
         };
 
         axiosSecure.post("/users", userInfo).then((res) => {
@@ -190,7 +191,7 @@ const Register = () => {
 
                 <p className="text-center text-purple-900">
                   <small>
-                   Already have an account? -
+                    Already have an account? -
                     <Link className="font-bold" to="/login">
                       SingIn
                     </Link>

@@ -5,7 +5,7 @@ import google from '../../assets/icons/google (1).png'
 
 
 const GoogleLogin = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle,user } = useAuth();
   const navigate = useNavigate();
 const axiosSecure = useAxiosSecure();
 
@@ -15,7 +15,6 @@ const axiosSecure = useAxiosSecure();
       const userInfo = {
         email: result.user?.email,
         name: result.user?.displayName,
-        type: "user", 
        
       };
 

@@ -4,13 +4,13 @@ import logo from "../../assets/icons/tasks.png";
 import { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { FaPerson } from "react-icons/fa6";
+import { IoMdPerson } from "react-icons/io";
 const Navbar = () => {
   const { logOut, user, loading } = useAuth();
+  
   const navigate = useNavigate();
   const handleLogOut = () => {
-    logOut().then(() => {
-      navigate("/login");
-    });
+    logOut();
   };
   const [isDarkMode, setIsDarkMode] = useState(false);
   useEffect(() => {
@@ -25,18 +25,13 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <Link>Home</Link>
+        <Link to="/">Home</Link>
       </li>
 
       <li>
-        <Link>About Us</Link>
+        <Link to="/about">About Us</Link>
       </li>
-      <li>
-        <Link>Our Blog</Link>
-      </li>
-      <li>
-        <Link>Our Services</Link>
-      </li>
+     
     </>
   );
   if (loading) {
@@ -104,7 +99,7 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <FaPerson className="w-10 rounded-full h-10"></FaPerson>
+                  <IoMdPerson className="w-10 rounded-full h-10"></IoMdPerson>
                 </>
               )}
             </div>

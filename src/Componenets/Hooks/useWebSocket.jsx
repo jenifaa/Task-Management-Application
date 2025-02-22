@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 
 const useWebSocket = () => {
   useEffect(() => {
-    const socket = io("http://localhost:5000"); 
+    const socket = io("https://task-management-application-server-1.onrender.com"); 
 
     // Listen for events from the server
     socket.on("taskUpdated", (task) => {

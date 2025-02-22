@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../Hooks/axiosSecure";
 import useAuth from "../Hooks/useAuth";
 import { CiCirclePlus } from "react-icons/ci";
+
 const Add = () => {
   const { user } = useAuth();
   const [title, setTitle] = useState("");
@@ -9,6 +11,24 @@ const Add = () => {
   const [category, setCategory] = useState("To-Do");
   const [dueDate, setDueDate] = useState("");
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient(); // React Query Client
+
+  // Mutation for adding a task
+  const addTaskMutation = useMutation({
+    mutationFn: async (task) => {
+      const response = await axiosSecure.post("/task", task);
+      return response.data;
+    },
+    onSuccess: () => {
+      // Refetch the tasks immediately after adding
+      queryClient.invalidateQueries(["tasks"]);
+      // Close modal
+      document.getElementById("my_modal_5").close();
+    },
+    onError: (error) => {
+      console.error("Error adding task:", error);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,21 +51,13 @@ const Add = () => {
       email: user?.email,
     };
 
-    try {
-      const response = await axiosSecure.post("/task", task);
-
-      if (response.data) {
-        console.log("Task added successfully:", response.data);
-
-        setTitle("");
-        setDescription("");
-        setCategory("To-Do");
-
-        document.getElementById("my_modal_5").close();
-      }
-    } catch (error) {
-      console.error("Error adding task:", error);
-    }
+    // Trigger mutation
+    addTaskMutation.mutate(task);
+    // Reset form fields
+    setTitle("");
+    setDescription("");
+    setCategory("To-Do");
+    setDueDate("");
   };
 
   return (
@@ -108,23 +120,6 @@ const Add = () => {
               </fieldset>
             </div>
 
-            {/* <div className="mb-6">
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend text-gray-600 dark:text-gray-300 font-semibold">
-                  Category
-                </legend>
-                <select
-                  className="select w-full py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value="To-Do">To-Do</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Done">Done</option>
-                </select>
-              </fieldset>
-            </div> */}
-
             <div className="mb-6">
               <div className="">
                 <fieldset className="fieldset">
@@ -147,7 +142,7 @@ const Add = () => {
                   <input
                     type="date"
                     value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)} 
+                    onChange={(e) => setDueDate(e.target.value)}
                     className="w-full py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none dark:bg-gray-700 dark:text-white"
                   />
                 </fieldset>
@@ -159,8 +154,9 @@ const Add = () => {
               <button
                 className="btn bg-blue-500 hover:bg-blue-600 text-white rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 type="submit"
+                disabled={addTaskMutation.isLoading}
               >
-                Add Task
+                {addTaskMutation.isLoading ? "Adding..." : "Add Task"}
               </button>
               <button
                 className="btn bg-red-500 hover:bg-red-600 text-white rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
