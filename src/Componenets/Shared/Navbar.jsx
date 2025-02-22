@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { FaPerson } from "react-icons/fa6";
 import { IoMdPerson } from "react-icons/io";
+import { CiLogout } from "react-icons/ci";
 const Navbar = () => {
   const { logOut, user, loading } = useAuth();
   
@@ -107,20 +108,20 @@ const Navbar = () => {
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
             >
-              <li>
+              <li className="text-xl font-bold">
                 <p>{user?.displayName}</p>
               </li>
 
               <li>
-                <Link>My Profile</Link>
+                <Link to="/profile" className="flex items-center gap-1"><IoMdPerson></IoMdPerson>My Profile</Link>
               </li>
               <li>
                 {user ? (
                   <button
                     onClick={handleLogOut}
-                    className="bg-red-500 px-3 py-1 rounded  hover:bg-red-700"
+                    className="bg-purple-900 flex items-center gap-1 text-white px-3 mt-1 py-1 rounded  hover:bg-purple-700"
                   >
-                    Log Out
+                   <CiLogout></CiLogout> Log Out
                   </button>
                 ) : (
                   <Link

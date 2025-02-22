@@ -116,6 +116,7 @@ const Add = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   maxLength={200}
+                  required
                 ></textarea>
               </fieldset>
             </div>
@@ -142,6 +143,7 @@ const Add = () => {
                   <input
                     type="date"
                     value={dueDate}
+                    required
                     onChange={(e) => setDueDate(e.target.value)}
                     className="w-full py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none dark:bg-gray-700 dark:text-white"
                   />

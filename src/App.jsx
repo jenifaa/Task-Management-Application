@@ -5,14 +5,18 @@ import { Route, Routes } from "react-router";
 import Login from "./Componenets/Authentication/Login";
 
 import AboutUs from "./Componenets/Pages/AboutUs";
+import PrivateRoutes from "./layouts/PrivateRoutes";
+import MyProfile from "./Componenets/Pages/MyProfile";
 
 function App() {
   return (
     <Routes>
       {" "}
-      <Route path="/" element={<Root />}>
+      <Route path="/" element={<PrivateRoutes><Root /></PrivateRoutes>}>
         <Route index element={<Home />} />
         <Route path="/about" element={<AboutUs></AboutUs>} />
+        <Route path="/profile" element={<MyProfile></MyProfile>} />
+        
       </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login></Login>} />
