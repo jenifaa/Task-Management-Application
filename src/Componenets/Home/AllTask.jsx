@@ -67,8 +67,8 @@ const AllTask = () => {
   return (
     <div className="w-11/12 mx-auto my-5">
       <div className="flex justify-between font2 items-center ">
-        <h2 className="text-5xl font-bold mb-14 ">📌 Your Tasks</h2>
-        <Link to="/manage" className="text-5xl font-bold mb-14 ">Manage Task</Link>
+        <h2 className="text-3xl font-bold mb-14 ">📌 Your Tasks</h2>
+        <Link to="/manage" className="text-3xl font-bold mb-14 ">⚙️ Manage Task</Link>
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
